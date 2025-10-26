@@ -5,30 +5,29 @@
          https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
          version="6.0">
 
-    <!-- =====================
-         FrontServlet
-         ===================== -->
+    <!-- ========== Le filtre de ton framework ========== -->
+    <filter>
+        <filter-name>ResourceFilter</filter-name>
+        <filter-class>framework.servlet.ResourceFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>ResourceFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <!-- ========== Le FrontServlet de ton framework ========== -->
     <servlet>
         <servlet-name>FrontServlet</servlet-name>
         <servlet-class>framework.servlet.FrontServlet</servlet-class>
     </servlet>
-
     <servlet-mapping>
         <servlet-name>FrontServlet</servlet-name>
-        <url-pattern>/app/*</url-pattern> <!-- toutes les routes dynamiques -->
+        <url-pattern>/FrontServlet</url-pattern>
     </servlet-mapping>
 
-    <!-- =====================
-         RequestFilter
-         ===================== -->
-    <filter>
-        <filter-name>RequestFilter</filter-name>
-        <filter-class>framework.filter.RequestFilter</filter-class>
-    </filter>
-
-    <filter-mapping>
-        <filter-name>RequestFilter</filter-name>
-        <url-pattern>/app/*</url-pattern> 
-    </filter-mapping>
+    <!-- Fichier d'accueil -->
+    <welcome-file-list>
+        <welcome-file>index.html</welcome-file>
+    </welcome-file-list>
 
 </web-app>
