@@ -1,37 +1,41 @@
-#!/bin/bash
+APP_NAME="Test"
+TOMCAT_WEBAPPS="/opt/tomcat/webapps"  # CHANGE THIS TO YOUR TOMCAT PATH
 
-# ==============================
-# Variables à modifier
-# ==============================
-PROJECT_NAME="Test"                # Nom du projet
-SOURCE_DIR="/home/mamitiana/Documents/GitHub/$PROJECT_NAME"   # Dossier local de ton projet
-TOMCAT_DIR="/opt/tomcat"                    # Dossier Tomcat
-TOMCAT_USER="tomcat"                         # Utilisateur qui fait tourner Tomcat
-WEBAPPS_DIR="$TOMCAT_DIR/webapps"
-# ==============================
 
-echo "🚀 Déploiement du projet $PROJECT_NAME sur Tomcat"
+echo "========================================="
+echo "   BUILDING $APP_NAME.war"
+echo "========================================="
 
 # 1️⃣ Supprimer l'ancien déploiement
+sudo rm -rf WEB-INF/classes/*
 if [ -d "$WEBAPPS_DIR/$PROJECT_NAME" ]; then
     echo "Suppression de l'ancien déploiement..."
     sudo rm -rf "$WEBAPPS_DIR/$PROJECT_NAME"
 fi
 
-# 2️⃣ Copier le projet
-echo "Copie du projet dans Tomcat..."
-sudo cp -r "$SOURCE_DIR" "$WEBAPPS_DIR/"
+# 2. Compile controllers
+echo "Compiling controllers..."
+javac -cp "WEB-INF/lib/*" \
+      -d WEB-INF/classes \
+      src/test/controllers/*.java
 
-# 3️⃣ Changer le propriétaire
-echo "Changement du propriétaire pour $TOMCAT_USER..."
-sudo chown -R $TOMCAT_USER:$TOMCAT_USER "$WEBAPPS_DIR/$PROJECT_NAME"
+if [ $? -ne 0 ]; then
+    echo "COMPILATION FAILED!"
+    exit 1
+fi
 
-# 4️⃣ Ajuster les permissions
-echo "Ajustement des permissions..."
-sudo chmod -R 755 "$WEBAPPS_DIR/$PROJECT_NAME"
+# 3. Build WAR
+echo "Creating $APP_NAME.war..."
+jar cf $APP_NAME.war \
+    WEB-INF \
+    index.html
 
-# 5️⃣ Redémarrer Tomcat
-echo "Redémarrage de Tomcat..."
-sudo systemctl restart tomcat
+# 4. Deploy to Tomcat
+echo "Deploying to Tomcat: $TOMCAT_WEBAPPS/"
+sudo cp $APP_NAME.war "$TOMCAT_WEBAPPS/"
 
-echo "✅ Déploiement terminé. Vérifie dans le navigateur : http://localhost:8080/$PROJECT_NAME/"
+echo "========================================="
+echo "   SUCCESS! DEPLOYED!"
+echo "   Open: http://localhost:8080/$APP_NAME/"
+echo "   Check logs: $TOMCAT_WEBAPPS/../logs/catalina.out"
+echo "========================================="
