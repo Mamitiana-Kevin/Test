@@ -13,9 +13,6 @@ public class HomeController {
 
     @GetMapping("/home")
     public void home() {
-<<<<<<< Updated upstream
-=======
         // auto shows: controller HomeController method home
->>>>>>> Stashed changes
     }
 }
