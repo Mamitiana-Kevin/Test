@@ -1,4 +1,4 @@
-package main.java.test.controllers;
+package test.controllers;
 
 import framework.annotation.Controller;
 import framework.annotation.GetMapping;

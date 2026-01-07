@@ -1,2 +1,2 @@
-main/java/test/controllers/HomeController.class
-main/java/test/controllers/UserController.class
+test\controllers\UserController.class
+test\controllers\HomeController.class
