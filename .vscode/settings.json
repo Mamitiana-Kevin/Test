@@ -3,5 +3,6 @@
     "lib/**/*.jar",
     "WEB-INF/lib/framework.jar",
     "src/main/webapp/WEB-INF/lib/framework.jar"
-  ]
+  ],
+  "java.compile.nullAnalysis.mode": "automatic"
 }
