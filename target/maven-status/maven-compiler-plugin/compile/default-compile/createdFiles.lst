@@ -1,2 +1,3 @@
+test\controllers\TestController.class
 test\controllers\UserController.class
 test\controllers\HomeController.class
