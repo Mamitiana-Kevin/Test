@@ -1,4 +1,6 @@
 test\controllers\TestController.class
+test\models\Adresse.class
 test\controllers\UserController.class
 test\controllers\EtudiantController.class
 test\controllers\HomeController.class
+test\models\Etudiant.class

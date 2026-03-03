@@ -4,30 +4,29 @@ import framework.annotation.Controller;
 import framework.annotation.GetMapping;
 import framework.annotation.PostMapping;
 import framework.utils.ModelAndView;
-
-import java.util.Map;
+import test.models.Etudiant;
 
 @Controller
 public class EtudiantController {
 
-    // Affiche le formulaire
     @GetMapping("/etudiant")
     public ModelAndView form() {
         return new ModelAndView("etudiant/form");
     }
 
-    // Reçoit les données du formulaire via Map
     @PostMapping("/etudiant")
-    public ModelAndView save(Map<String, Object> form) {
+    public ModelAndView save(Etudiant etudiant) {   // ← Binding automatique !
 
-        System.out.println("===== Données reçues dans le Map =====");
-        form.forEach((key, value) -> System.out.println(key + " = " + value));
-        System.out.println("======================================");
+        System.out.println("===== Étudiant reçu =====");
+        System.out.println("Nom     : " + etudiant.getNom());
+        System.out.println("Prénom  : " + etudiant.getPrenom());
+        System.out.println("Email   : " + etudiant.getEmail());
+        System.out.println("Ville   : " + etudiant.getAdresse().getVille());
+        System.out.println("Code Postal : " + etudiant.getAdresse().getCodePostal());
+        System.out.println("Rue     : " + etudiant.getAdresse().getRue());
+        System.out.println("=========================");
 
         return new ModelAndView("etudiant/result")
-                .addObject("nom", form.get("nom"))
-                .addObject("prenom", form.get("prenom"))
-                .addObject("dateNaissance", form.get("dateNaissance"))
-                .addObject("email", form.get("email"));
+                .addObject("etudiant", etudiant);
     }
 }

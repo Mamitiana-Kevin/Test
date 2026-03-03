@@ -4,20 +4,26 @@
     <title>Résultat</title>
     <style>
         body { font-family: Arial; margin: 40px; }
-        .box { background: #e8f5e9; padding: 20px; border-radius: 8px; width: 400px; }
+        .card { background: #e8f8f5; padding: 25px; border-radius: 10px; width: 450px; }
+        h2 { color: #16a085; }
     </style>
 </head>
 <body>
-    <h1>Étudiant enregistré avec succès !</h1>
+    <h1>Étudiant enregistré !</h1>
 
-    <div class="box">
-        <p><strong>Nom :</strong> ${nom}</p>
-        <p><strong>Prénom :</strong> ${prenom}</p>
-        <p><strong>Date de naissance :</strong> ${dateNaissance}</p>
-        <p><strong>Email :</strong> ${email}</p>
+    <div class="card">
+        <h2>Informations</h2>
+        <p><strong>Nom :</strong> ${etudiant.nom}</p>
+        <p><strong>Prénom :</strong> ${etudiant.prenom}</p>
+        <p><strong>Email :</strong> ${etudiant.email}</p>
+
+        <h2>Adresse</h2>
+        <p><strong>Rue :</strong> ${etudiant.adresse.rue}</p>
+        <p><strong>Ville :</strong> ${etudiant.adresse.ville}</p>
+        <p><strong>Code Postal :</strong> ${etudiant.adresse.codePostal}</p>
     </div>
 
     <br>
-    <a href="${pageContext.request.contextPath}/etudiant">← Retour au formulaire</a>
+    <a href="${pageContext.request.contextPath}/etudiant">← Nouveau</a>
 </body>
 </html>
