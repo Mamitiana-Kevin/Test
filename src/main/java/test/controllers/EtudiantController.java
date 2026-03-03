@@ -2,26 +2,32 @@ package test.controllers;
 
 import framework.annotation.Controller;
 import framework.annotation.GetMapping;
-import framework.annotation.RequestParam;
+import framework.annotation.PostMapping;
 import framework.utils.ModelAndView;
-import java.util.*;
 
+import java.util.Map;
 
 @Controller
 public class EtudiantController {
 
-    // Cas 1: Binding par nom (URL: /Test/etudiant?id=2)
+    // Affiche le formulaire
     @GetMapping("/etudiant")
-    public String getEtudiant(long id) {
-        return "Etudiant ID = " + id;
+    public ModelAndView form() {
+        return new ModelAndView("etudiant/form");
     }
 
-    // Cas 2: Avec @RequestParam (URL: /Test/search?q=java&limit=10)
-    @GetMapping("/search")
-    public String search(
-        @RequestParam("q") String query,
-        @RequestParam(value = "limit", defaultValue = "20") int limit
-    ) {
-        return "Recherche: " + query + " (Limit: " + limit + ")";
+    // Reçoit les données du formulaire via Map
+    @PostMapping("/etudiant")
+    public ModelAndView save(Map<String, Object> form) {
+
+        System.out.println("===== Données reçues dans le Map =====");
+        form.forEach((key, value) -> System.out.println(key + " = " + value));
+        System.out.println("======================================");
+
+        return new ModelAndView("etudiant/result")
+                .addObject("nom", form.get("nom"))
+                .addObject("prenom", form.get("prenom"))
+                .addObject("dateNaissance", form.get("dateNaissance"))
+                .addObject("email", form.get("email"));
     }
 }
