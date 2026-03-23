@@ -6,3 +6,4 @@ test\models\Etudiant.class
 test\controllers\TestController.class
 test\models\Adresse.class
 test\controllers\ApiTestController$Produit.class
+test\controllers\UploadController.class
